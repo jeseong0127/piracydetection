@@ -7,12 +7,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.DynamicUpdate;
 
 @Entity
 @Table(name = "image")
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 @DynamicUpdate
 public class Image {
     @Id
@@ -34,4 +38,14 @@ public class Image {
     private String regId;
 
     private LocalDateTime regDate;
+
+    public Image(String memberId, int metaSeq, String imagePath, String imageName, String fileSize, String fileType) {
+        this.metaSeq = metaSeq;
+        this.imageName = imagePath;
+        this.imagePath = imageName;
+        this.imageSize = fileSize;
+        this.imageType = fileType;
+        this.regId = memberId;
+        this.regDate = LocalDateTime.now();
+    }
 }
