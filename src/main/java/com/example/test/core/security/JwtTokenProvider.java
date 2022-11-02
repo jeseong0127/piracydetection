@@ -29,14 +29,16 @@ public class JwtTokenProvider {
     @Value("${app.jwtExpirationMs}")
     private long jwtExpirationMs;
 
-    public String generateJwtToken(String memberId) {
+    public String generateJwtToken(String memberId, String memberRole) {
         SecretKey secretKey = Keys.hmacShaKeyFor(jwtSecret.getBytes(StandardCharsets.UTF_8));
         Date now = new Date();
-        Date expireAt = new Date(now.getTime() + jwtExpirationMs);
+//        Date expireAt = new Date(now.getTime() + jwtExpirationMs);
         return Jwts.builder()
                 .claim("memberId", memberId)
+//                .claim("role", "ROLE_" + memberRole.toString())
+                .claim("role", memberRole)
                 .setIssuedAt(now)
-                .setExpiration(expireAt)
+//                .setExpiration(expireAt)
                 .signWith(secretKey, SignatureAlgorithm.HS256)
                 .compact();
     }
