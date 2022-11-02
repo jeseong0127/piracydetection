@@ -1,0 +1,40 @@
+server:
+  port: ${APPLICATION_PORT}
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+  jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL57InnoDBDialect
+    generate-ddl: false
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+    open-in-view: true
+  servlet:
+    multipart:
+      max-file-size: 30MB
+      max-request-size: 30MB
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+app:
+  jwtSecret: ${APP_JWT_SECRET}
+  jwtExpirationMs: ${APP_JWT_EXPIRATION_MS}
+
+
+image:
+  upload-path: ${UPLOAD_PATH}
