@@ -23,7 +23,7 @@ public class Image {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer imageNo;
 
-    private int metaSeq;
+    private int reportNo;
 
     private String imageName;
 
@@ -39,8 +39,8 @@ public class Image {
 
     private LocalDateTime regDate;
 
-    public Image(String memberId, int metaSeq, String imagePath, String imageName, String fileSize, String fileType) {
-        this.metaSeq = metaSeq;
+    public Image(String memberId, int reportNo, String imagePath, String imageName, String fileSize, String fileType) {
+        this.reportNo = reportNo;
         this.imageName = imagePath;
         this.imagePath = imageName;
         this.imageSize = fileSize;

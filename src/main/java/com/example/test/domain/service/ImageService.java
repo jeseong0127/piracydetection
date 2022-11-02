@@ -51,7 +51,7 @@ public class ImageService {
         }
     }
 
-    public void uploadReportImage(String memberId, int metaSeq, MultipartFile image) {
+    public void uploadReportImage(String memberId, int reportNo, MultipartFile image) {
         try {
             LocalDateTime now = LocalDateTime.now();
             String date = now.format(dateFormatter);
@@ -61,7 +61,7 @@ public class ImageService {
             String fileSize = String.valueOf(image.getSize());
             String fileName = date + "/" + time + fileType;
             uploadImage(imagePath, image, fileName);
-            imageRepository.save(new Image(memberId, metaSeq, fileName.substring(fileName.lastIndexOf("/") + 1), fileName, fileSize, fileType));
+            imageRepository.save(new Image(memberId, reportNo, fileName.substring(fileName.lastIndexOf("/") + 1), fileName, fileSize, fileType));
         } catch (IOException e) {
             throw new CannotUploadImageException();
         }
