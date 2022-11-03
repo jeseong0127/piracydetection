@@ -2,6 +2,7 @@ package com.example.test.application.controller;
 
 import com.example.test.application.response.MemberReportCountResponse;
 import com.example.test.application.response.MemberReportsResponse;
+import com.example.test.application.response.MemberWeekReportCountResponse;
 import com.example.test.core.security.AuthenticatedMember;
 import com.example.test.core.security.MemberInfo;
 import com.example.test.domain.service.MemberService;
@@ -37,5 +38,14 @@ public class MemberController {
             @MemberInfo AuthenticatedMember member
     ) {
         return memberService.getMemberReportCount(member.getMemberId());
+    }
+
+    @ApiOperation("일주일 신고내역 가져오기")
+    @GetMapping("/reports/week")
+    @ResponseStatus(HttpStatus.OK)
+    public MemberWeekReportCountResponse getMemberWeekReportCount(
+            @MemberInfo AuthenticatedMember member
+    ) {
+        return memberService.getMemberWeekReportCount(member.getMemberId());
     }
 }

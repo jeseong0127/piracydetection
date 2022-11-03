@@ -2,6 +2,7 @@ package com.example.test.domain.model.repository;
 
 import com.example.test.domain.model.entity.Report;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,4 +19,6 @@ public interface ReportRepository extends JpaRepository<Report, Integer> {
     int countByRegId(String memberId);
 
     int countByRegIdAndStatus(String memberId, int i);
+
+    int countByRegIdAndRegDateBetween(String memberId, LocalDateTime start, LocalDateTime end);
 }

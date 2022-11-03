@@ -35,7 +35,7 @@ public class ReportController {
     }
 
     @ApiOperation("신고 삭제하기")
-    @DeleteMapping("")
+    @DeleteMapping
     @ResponseStatus(HttpStatus.OK)
     public void deleteReport(
             @RequestBody DeleteReportRequest reportNo
