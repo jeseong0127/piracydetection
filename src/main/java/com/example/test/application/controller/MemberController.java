@@ -1,5 +1,6 @@
 package com.example.test.application.controller;
 
+import com.example.test.application.response.MemberReportCountResponse;
 import com.example.test.application.response.MemberReportsResponse;
 import com.example.test.core.security.AuthenticatedMember;
 import com.example.test.core.security.MemberInfo;
@@ -29,4 +30,12 @@ public class MemberController {
         return new MemberReportsResponse(memberService.getMemberReports(member.getMemberId()));
     }
 
+    @ApiOperation("내 신고 개수 가져오기")
+    @GetMapping("/reports/count")
+    @ResponseStatus(HttpStatus.OK)
+    public MemberReportCountResponse getMemberReportCount(
+            @MemberInfo AuthenticatedMember member
+    ) {
+        return memberService.getMemberReportCount(member.getMemberId());
+    }
 }
