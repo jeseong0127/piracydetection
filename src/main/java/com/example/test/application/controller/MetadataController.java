@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class MetadataController {
     private final MetadataService metadataService;
 
-    @ApiOperation("메타데이터 이미지 조회하기")
+    @ApiOperation("메타데이터 이미지 검색")
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public MetadataResponse getMetadata(
