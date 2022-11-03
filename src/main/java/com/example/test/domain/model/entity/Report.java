@@ -7,15 +7,18 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.DynamicUpdate;
 
 @Entity
-@Table(name = "Report")
+@Table(name = "report")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -26,7 +29,10 @@ public class Report {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer reportNo;
 
-    private int metaSeq;
+    @ManyToOne
+    @JoinColumn(name = "META_SEQ")
+    @ToString.Exclude
+    private Metadata metadata;
 
     private int status;
 
@@ -41,7 +47,6 @@ public class Report {
     private LocalDateTime delDate;
 
     public Report(String memberId, ReportRequest reportRequest) {
-        this.metaSeq = reportRequest.getMetaSeq();
         this.status = 0;
         this.content = reportRequest.getContent();
         this.regId = memberId;
