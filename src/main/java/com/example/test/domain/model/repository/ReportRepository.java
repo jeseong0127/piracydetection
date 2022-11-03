@@ -13,4 +13,8 @@ public interface ReportRepository extends JpaRepository<Report, Integer> {
 
     @Query("select r from Report r join fetch r.metadata")
     List<Report> findAllByRegId(String memberId);
+
+    int countByRegId(String memberId);
+
+    int countByRegIdAndStatus(String memberId, int i);
 }

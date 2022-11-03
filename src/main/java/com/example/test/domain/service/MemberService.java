@@ -1,5 +1,6 @@
 package com.example.test.domain.service;
 
+import com.example.test.application.response.MemberReportCountResponse;
 import com.example.test.domain.model.dto.GetMemberReportsDto;
 import com.example.test.domain.model.repository.ReportRepository;
 
@@ -19,5 +20,9 @@ public class MemberService {
         return reportRepository.findAllByRegId(memberId).stream()
                 .map(GetMemberReportsDto::new)
                 .collect(Collectors.toList());
+    }
+
+    public MemberReportCountResponse getMemberReportCount(String memberId) {
+        return new MemberReportCountResponse(reportRepository.countByRegId(memberId), reportRepository.countByRegIdAndStatus(memberId, 1));
     }
 }
