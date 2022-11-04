@@ -41,7 +41,7 @@ public class MemberController {
     }
 
     @ApiOperation("일주일 신고내역 가져오기")
-    @GetMapping("/reports/week")
+    @GetMapping("/week-reports/")
     @ResponseStatus(HttpStatus.OK)
     public MemberWeekReportCountResponse getMemberWeekReportCount(
             @MemberInfo AuthenticatedMember member
