@@ -29,6 +29,9 @@ public class ImageService {
     @Value("${image.upload-path}")
     private String imagePath;
 
+    @Value("${image.search-path}")
+    private String searchImagePath;
+
     private final ImageRepository imageRepository;
 
     public byte[] viewImage(int imageId) {
@@ -73,5 +76,9 @@ public class ImageService {
 
         FileUtils.forceMkdir(directory);
         file.transferTo(image);
+    }
+
+    public byte[] viewThumbnailImage(String imagePath) {
+        return this.viewImage(this.searchImagePath + imagePath);
     }
 }
