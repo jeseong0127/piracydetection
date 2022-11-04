@@ -20,5 +20,5 @@ public interface ReportRepository extends JpaRepository<Report, Integer> {
 
     int countByRegIdAndStatus(String memberId, int i);
 
-    int countByRegIdAndRegDateBetween(String memberId, LocalDateTime start, LocalDateTime end);
+    int countByRegIdAndStatusAndRegDateBetween(String memberId, int status, LocalDateTime start, LocalDateTime end);
 }

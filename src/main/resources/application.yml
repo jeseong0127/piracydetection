@@ -38,3 +38,12 @@ app:
 
 image:
   upload-path: ${UPLOAD_PATH}
+  search-path: ${SEARCH_PATH}
+logging:
+  level:
+    org:
+      hibernate:
+        type:
+          descriptor:
+            sql:
+              BasicBinder: off
