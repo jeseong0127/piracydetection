@@ -1,5 +1,7 @@
 package com.example.test.application.controller;
 
+import com.example.test.core.security.AuthenticatedMember;
+import com.example.test.core.security.MemberInfo;
 import com.example.test.domain.service.ImageService;
 import io.swagger.annotations.ApiOperation;
 
@@ -20,13 +22,14 @@ public class ImageController {
 
     private final ImageService imageService;
 
-    @ApiOperation(value = "이미지 조회하기")
-    @GetMapping(value = "/{imageId}", produces = MediaType.IMAGE_JPEG_VALUE)
+    @ApiOperation(value = "신고 이미지 조회하기")
+    @GetMapping(value = "/{reportNo}", produces = MediaType.IMAGE_JPEG_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public byte[] viewImage(
-            @PathVariable int imageId
+            @MemberInfo AuthenticatedMember member,
+            @PathVariable int reportNo
     ) {
-        return imageService.viewImage(imageId);
+        return imageService.viewImage(reportNo, member.getMemberId());
     }
 
     @ApiOperation(value = "검색 대표 이미지 조회하기")
