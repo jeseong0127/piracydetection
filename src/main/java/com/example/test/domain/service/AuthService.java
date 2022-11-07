@@ -32,7 +32,7 @@ public class AuthService {
 
         MemberResponse memberResponse = new MemberResponse(member);
 
-        String accessToken = jwtTokenProvider.generateJwtToken(member.getMemberId());
+        String accessToken = jwtTokenProvider.generateJwtToken(member.getMemberId(), member.getMemberRole());
         TokenResponse tokenResponse = new TokenResponse(accessToken);
 
         return new LoginResponse(memberResponse, tokenResponse);
