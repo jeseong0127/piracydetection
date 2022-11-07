@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -23,16 +24,19 @@ public class MemberService {
 
     private final ReportRepository reportRepository;
 
+    @Transactional(readOnly = true)
     public List<GetMemberReportsDto> getMemberReports(String memberId) {
         return reportRepository.findAllByRegId(memberId).stream()
                 .map(GetMemberReportsDto::new)
                 .collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
     public MemberReportCountResponse getMemberReportCount(String memberId) {
         return new MemberReportCountResponse(reportRepository.countByRegId(memberId), reportRepository.countByRegIdAndStatus(memberId, 1));
     }
 
+    @Transactional(readOnly = true)
     public MemberWeekReportCountResponse getMemberWeekReportCount(String memberId) {
         List<GetMemberWeekReportCountDto> reports = new ArrayList<>();
         List<GetMemberWeekProcessedReportCountDto> processedReports = new ArrayList<>();
