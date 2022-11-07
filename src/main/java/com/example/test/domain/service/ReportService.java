@@ -1,9 +1,10 @@
 package com.example.test.domain.service;
 
-import com.example.test.application.request.DeleteReportRequest;
 import com.example.test.application.request.ReportRequest;
+import com.example.test.domain.model.entity.Metadata;
 import com.example.test.domain.model.entity.Report;
 import com.example.test.domain.model.repository.ImageRepository;
+import com.example.test.domain.model.repository.MetadataRepository;
 import com.example.test.domain.model.repository.ReportRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class ReportService {
 
+    private final MetadataRepository metadataRepository;
+
     private final ReportRepository reportRepository;
 
     private final ImageService imageService;
@@ -22,7 +25,8 @@ public class ReportService {
     private final ImageRepository imageRepository;
 
     public void submitReport(String memberId, ReportRequest reportRequest) {
-        Report report = reportRepository.save(new Report(memberId, reportRequest));
+        Metadata metadata = metadataRepository.findById(reportRequest.getMetaSeq()).orElseThrow(() -> new RuntimeException());
+        Report report = reportRepository.save(new Report(memberId, reportRequest, metadata));
         uploadImages(memberId, report.getReportNo(), reportRequest);
     }
 
@@ -32,8 +36,8 @@ public class ReportService {
         }
     }
 
-    public void deleteReport(DeleteReportRequest request) {
-        imageRepository.deleteByReportNo(request.getReportNo());
-        reportRepository.deleteById(request.getReportNo());
+    public void deleteReport(int reportNo) {
+        imageRepository.deleteByReportNo(reportNo);
+        reportRepository.deleteById(reportNo);
     }
 }

@@ -46,7 +46,8 @@ public class Report {
 
     private LocalDateTime delDate;
 
-    public Report(String memberId, ReportRequest reportRequest) {
+    public Report(String memberId, ReportRequest reportRequest, Metadata metadata) {
+        this.metadata = metadata;
         this.status = 0;
         this.content = reportRequest.getContent();
         this.regId = memberId;
