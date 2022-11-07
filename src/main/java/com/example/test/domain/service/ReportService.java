@@ -1,6 +1,7 @@
 package com.example.test.domain.service;
 
 import com.example.test.application.request.ReportRequest;
+import com.example.test.domain.exception.metadata.MetadataNotFoundException;
 import com.example.test.domain.model.entity.Metadata;
 import com.example.test.domain.model.entity.Report;
 import com.example.test.domain.model.repository.ImageRepository;
@@ -25,7 +26,7 @@ public class ReportService {
     private final ImageRepository imageRepository;
 
     public void submitReport(String memberId, ReportRequest reportRequest) {
-        Metadata metadata = metadataRepository.findById(reportRequest.getMetaSeq()).orElseThrow(() -> new RuntimeException());
+        Metadata metadata = metadataRepository.findById(reportRequest.getMetaSeq()).orElseThrow(() -> new MetadataNotFoundException(reportRequest.getMetaSeq()));
         Report report = reportRepository.save(new Report(memberId, reportRequest, metadata));
         uploadImages(memberId, report.getReportNo(), reportRequest);
     }
