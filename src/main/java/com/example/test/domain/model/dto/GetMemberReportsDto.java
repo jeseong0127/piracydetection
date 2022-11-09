@@ -27,6 +27,12 @@ public class GetMemberReportsDto {
 
     private final String modelName;
 
+    private final String registrationNumber;
+
+    private final String lastRightHolderName;
+
+    private final String pathImg;
+
     public GetMemberReportsDto(Report report) {
         this.reportNo = report.getReportNo();
         this.status = report.getStatus();
@@ -38,5 +44,8 @@ public class GetMemberReportsDto {
         this.productCategory = metadata.getProductCategory();
         this.articleName = metadata.getArticleName();
         this.modelName = metadata.getModelName();
+        this.registrationNumber = metadata.getRegistrationNumber();
+        this.lastRightHolderName = metadata.getLastRightHolderName();
+        this.pathImg = metadata.getPathImg();
     }
 }
