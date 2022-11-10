@@ -34,8 +34,8 @@ public class ImageService {
 
     private final ImageRepository imageRepository;
 
-    public byte[] viewImage(int reportNo, String memberId) {
-        Image image = imageRepository.findByReportNoAndRegId(reportNo, memberId).orElseThrow(() -> new ImageNotFoundException(reportNo));
+    public byte[] viewImage(int reportNo) {
+        Image image = imageRepository.findByReportNo(reportNo).orElseThrow(() -> new ImageNotFoundException(reportNo));
         return this.viewImage(imagePath + File.separator + image.getImagePath());
     }
 

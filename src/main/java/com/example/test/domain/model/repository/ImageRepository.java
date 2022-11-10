@@ -11,5 +11,5 @@ import org.springframework.stereotype.Repository;
 public interface ImageRepository extends JpaRepository<Image, Integer> {
     void deleteByReportNo(int reportNo);
 
-    Optional<Image> findByReportNoAndRegId(int reportNo, String memberId);
+    Optional<Image> findByReportNo(int reportNo);
 }
