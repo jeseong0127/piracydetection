@@ -1,10 +1,13 @@
 package com.example.test.domain.service;
 
 import com.example.test.application.response.MemberReportCountResponse;
+import com.example.test.application.response.MemberReportLogsResponse;
 import com.example.test.application.response.MemberWeekReportCountResponse;
+import com.example.test.domain.model.dto.GetMemberReportLogsDto;
 import com.example.test.domain.model.dto.GetMemberReportsDto;
 import com.example.test.domain.model.dto.GetMemberWeekProcessedReportCountDto;
 import com.example.test.domain.model.dto.GetMemberWeekReportCountDto;
+import com.example.test.domain.model.repository.ReportLogRepository;
 import com.example.test.domain.model.repository.ReportRepository;
 
 import java.time.LocalDate;
@@ -23,6 +26,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class MemberService {
 
     private final ReportRepository reportRepository;
+
+    private final ReportLogRepository reportLogRepository;
 
     @Transactional(readOnly = true)
     public List<GetMemberReportsDto> getMemberReports(String memberId) {
@@ -54,5 +59,11 @@ public class MemberService {
         }
 
         return new MemberWeekReportCountResponse(reports, processedReports);
+    }
+
+    public MemberReportLogsResponse getReportLogs(String memberId) {
+        return new MemberReportLogsResponse(reportLogRepository.findAllByRegId(memberId).stream()
+                .map(GetMemberReportLogsDto::new)
+                .collect(Collectors.toList()));
     }
 }
