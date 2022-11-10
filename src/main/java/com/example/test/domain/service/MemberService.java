@@ -33,7 +33,7 @@ public class MemberService {
 
     @Transactional(readOnly = true)
     public MemberReportCountResponse getMemberReportCount(String memberId) {
-        return new MemberReportCountResponse(reportRepository.countByRegId(memberId), reportRepository.countByRegIdAndStatus(memberId, 1));
+        return new MemberReportCountResponse(reportRepository.countByRegId(memberId), reportRepository.countByRegIdAndStatus(memberId, 'C'));
     }
 
     @Transactional(readOnly = true)
@@ -49,8 +49,8 @@ public class MemberService {
             LocalDateTime start = LocalDateTime.of(now.minusDays(i), from);
             LocalDateTime end = LocalDateTime.of(now.minusDays(i), to);
 
-            reports.add(new GetMemberWeekReportCountDto(start.getDayOfWeek(), reportRepository.countByRegIdAndStatusAndRegDateBetween(memberId, 0, start, end)));
-            processedReports.add(new GetMemberWeekProcessedReportCountDto(start.getDayOfWeek(), reportRepository.countByRegIdAndStatusAndRegDateBetween(memberId, 1, start, end)));
+            reports.add(new GetMemberWeekReportCountDto(start.getDayOfWeek(), reportRepository.countByRegIdAndRegDateBetween(memberId, start, end)));
+            processedReports.add(new GetMemberWeekProcessedReportCountDto(start.getDayOfWeek(), reportRepository.countByRegIdAndStatusAndRegDateBetween(memberId, 'C', start, end)));
         }
 
         return new MemberWeekReportCountResponse(reports, processedReports);

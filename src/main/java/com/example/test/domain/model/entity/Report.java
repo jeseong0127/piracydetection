@@ -34,7 +34,7 @@ public class Report {
     @ToString.Exclude
     private Metadata metadata;
 
-    private int status;
+    private char status;
 
     private String title;
 

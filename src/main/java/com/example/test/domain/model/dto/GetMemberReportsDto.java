@@ -13,7 +13,7 @@ import lombok.Getter;
 public class GetMemberReportsDto {
     private final int reportNo;
 
-    private final int status;
+    private final char status;
 
     private final String content;
 
