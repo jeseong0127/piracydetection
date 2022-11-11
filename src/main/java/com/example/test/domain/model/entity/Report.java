@@ -48,7 +48,7 @@ public class Report {
 
     public Report(String memberId, ReportRequest reportRequest, Metadata metadata) {
         this.metadata = metadata;
-        this.status = 0;
+        this.status = 'P';
         this.content = reportRequest.getContent();
         this.regId = memberId;
         this.regDate = LocalDateTime.now();
