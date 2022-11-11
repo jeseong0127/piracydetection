@@ -1,5 +1,7 @@
 package com.example.test.domain.model.entity;
 
+import com.example.test.application.request.ReportRequest;
+
 import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -42,4 +44,19 @@ public class ReportLog {
     private LocalDateTime regDate;
 
     private LocalDateTime delDate;
+
+    public ReportLog(String memberId, ReportRequest reportRequest, Metadata metadata) {
+        this.metadata = metadata;
+        this.status = 'P';
+        this.content = reportRequest.getContent();
+        this.regId = memberId;
+        this.regDate = LocalDateTime.now();
+    }
+
+    public ReportLog(Report report) {
+        this.metadata = report.getMetadata();
+        this.status = 'D';
+        this.content = report.getContent();
+        this.delDate = LocalDateTime.now();
+    }
 }
