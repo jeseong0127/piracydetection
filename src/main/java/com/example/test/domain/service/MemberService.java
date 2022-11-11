@@ -61,6 +61,7 @@ public class MemberService {
         return new MemberWeekReportCountResponse(reports, processedReports);
     }
 
+    @Transactional(readOnly = true)
     public MemberReportLogsResponse getReportLogs(String memberId) {
         return new MemberReportLogsResponse(reportLogRepository.findAllByRegId(memberId).stream()
                 .map(GetMemberReportLogsDto::new)
