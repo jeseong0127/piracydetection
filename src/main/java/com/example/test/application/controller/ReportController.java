@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,5 +41,14 @@ public class ReportController {
             @PathVariable int reportNo
     ) {
         reportService.deleteReport(reportNo);
+    }
+
+    @ApiOperation("신고 처리 완료하기")
+    @PutMapping("/{reportNo}/finish")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void processedReport(
+            @PathVariable int reportNo
+    ) {
+        reportService.processedReport(reportNo);
     }
 }
