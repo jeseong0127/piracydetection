@@ -53,10 +53,10 @@ public class ReportLog {
         this.regDate = LocalDateTime.now();
     }
 
-    public ReportLog(Report report) {
+    public ReportLog(Report report, char type) {
         this.metadata = report.getMetadata();
-        this.status = 'D';
+        this.status = type;
         this.content = report.getContent();
-        this.delDate = LocalDateTime.now();
+        this.regDate = LocalDateTime.now();
     }
 }

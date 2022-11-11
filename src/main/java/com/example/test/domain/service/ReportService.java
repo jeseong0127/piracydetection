@@ -48,6 +48,14 @@ public class ReportService {
 
         imageRepository.deleteByReportNo(reportNo);
         reportRepository.deleteById(reportNo);
-        reportLogRepository.save(new ReportLog(report));
+        reportLogRepository.save(new ReportLog(report, 'D'));
+    }
+
+    public void processedReport(int reportNo) {
+        Report report = reportRepository.findById(reportNo).orElseThrow(ReportNotFoundException::new);
+        report.setStatus('C');
+        reportRepository.save(report);
+
+        reportLogRepository.save(new ReportLog(report, 'C'));
     }
 }
