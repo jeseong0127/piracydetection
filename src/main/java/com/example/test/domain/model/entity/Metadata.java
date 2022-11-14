@@ -24,6 +24,8 @@ public class Metadata {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int metaSeq;
 
+    private String highProductCategory;
+
     private String productCategory;
 
     private String articleName;
