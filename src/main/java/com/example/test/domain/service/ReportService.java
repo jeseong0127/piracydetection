@@ -43,12 +43,12 @@ public class ReportService {
         }
     }
 
-    public void deleteReport(int reportNo) {
+    public void deleteReport(String memberId, int reportNo) {
         Report report = reportRepository.findById(reportNo).orElseThrow(ReportNotFoundException::new);
 
         imageRepository.deleteByReportNo(reportNo);
         reportRepository.deleteById(reportNo);
-        reportLogRepository.save(new ReportLog(report, 'D'));
+        reportLogRepository.save(new ReportLog(memberId, report, 'D'));
     }
 
     public void processedReport(int reportNo) {
