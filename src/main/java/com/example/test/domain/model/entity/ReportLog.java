@@ -53,6 +53,14 @@ public class ReportLog {
         this.regDate = LocalDateTime.now();
     }
 
+    public ReportLog(String memberId, Report report, char type) {
+        this.metadata = report.getMetadata();
+        this.status = type;
+        this.content = report.getContent();
+        this.regId = memberId;
+        this.regDate = LocalDateTime.now();
+    }
+
     public ReportLog(Report report, char type) {
         this.metadata = report.getMetadata();
         this.status = type;

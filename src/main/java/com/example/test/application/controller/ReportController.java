@@ -38,9 +38,10 @@ public class ReportController {
     @DeleteMapping("/{reportNo}")
     @ResponseStatus(HttpStatus.OK)
     public void deleteReport(
+            @MemberInfo AuthenticatedMember member,
             @PathVariable int reportNo
     ) {
-        reportService.deleteReport(reportNo);
+        reportService.deleteReport(member.getMemberId(), reportNo);
     }
 
     @ApiOperation("신고 처리 완료하기")
