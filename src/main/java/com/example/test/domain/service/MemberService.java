@@ -63,7 +63,7 @@ public class MemberService {
 
     @Transactional(readOnly = true)
     public MemberReportLogsResponse getReportLogs(String memberId) {
-        return new MemberReportLogsResponse(reportLogRepository.findAllByRegId(memberId).stream()
+        return new MemberReportLogsResponse(reportLogRepository.findAllByRegIdOrderByRegDateDesc(memberId).stream()
                 .map(GetMemberReportLogsDto::new)
                 .collect(Collectors.toList()));
     }

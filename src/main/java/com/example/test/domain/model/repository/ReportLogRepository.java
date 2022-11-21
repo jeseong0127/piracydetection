@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ReportLogRepository extends JpaRepository<ReportLog, Integer> {
-    List<ReportLog> findAllByRegId(String memberId);
+    List<ReportLog> findAllByRegIdOrderByRegDateDesc(String memberId);
 }
