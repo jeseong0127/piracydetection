@@ -34,9 +34,15 @@ public class Metadata {
 
     private String companyName;
 
+    private String kpsCompanyName;
+
     private String registrationNumber;
 
+    private String registrationDate;
+
     private String applicationNumber;
+
+    private String applicantAddress;
 
     @Column(name = "LASTRIGHT_HOLDERNAME")
     private String lastRightHolderName;
@@ -66,5 +72,13 @@ public class Metadata {
 
     @Column(name = "DSSHPCLSSCD")
     private String dsshpclsscd;
+
+    private String agentName;
+
+    private String agentAddress;
+
+    private String agentEmail;
+
+    private String agentPhone;
 
 }
