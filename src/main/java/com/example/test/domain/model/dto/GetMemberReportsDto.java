@@ -3,7 +3,12 @@ package com.example.test.domain.model.dto;
 import com.example.test.domain.model.entity.Metadata;
 import com.example.test.domain.model.entity.Report;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -33,6 +38,18 @@ public class GetMemberReportsDto {
 
     private final String pathImg;
 
+    private final String registrationDate;
+
+    private final String applicantName;
+
+    private final String applicantAddress;
+
+    private final String agentName;
+
+    private final String agentAddress;
+
+    private final LocalDate expirationDate;
+
     public GetMemberReportsDto(Report report) {
         this.reportNo = report.getReportNo();
         this.status = report.getStatus();
@@ -47,5 +64,26 @@ public class GetMemberReportsDto {
         this.registrationNumber = metadata.getRegistrationNumber();
         this.lastRightHolderName = metadata.getLastRightHolderName();
         this.pathImg = metadata.getPathImg();
+
+        this.registrationDate = metadata.getRegistrationDate();
+        this.applicantName = metadata.getKpsCompanyName();
+        this.applicantAddress = metadata.getApplicantAddress();
+        this.agentName = metadata.getAgentName();
+        this.agentAddress = metadata.getAgentAddress();
+
+        LocalDate expirationDate = null;
+        if (metadata.getRegistrationDate() != null) {
+            SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+            try {
+                Date date = dateformat.parse(metadata.getRegistrationDate().replaceAll("\\.", "-"));
+                expirationDate = date.toInstant().atZone(ZoneId.systemDefault())
+                        .toLocalDate()
+                        .plusYears(15);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+
+        this.expirationDate = expirationDate;
     }
 }
