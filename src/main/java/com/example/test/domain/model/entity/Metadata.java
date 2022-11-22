@@ -77,8 +77,4 @@ public class Metadata {
 
     private String agentAddress;
 
-    private String agentEmail;
-
-    private String agentPhone;
-
 }

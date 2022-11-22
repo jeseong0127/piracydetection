@@ -2,8 +2,12 @@ package com.example.test.domain.model.dto;
 
 import com.example.test.domain.model.entity.Metadata;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.time.ZoneId;
+import java.util.Date;
 
 import lombok.Getter;
 
@@ -30,16 +34,21 @@ public class GetMetadataDto {
 
     private final String agentName;
     private final String agentAddress;
-    private final String agentEmail;
-    private final String agentPhone;
 
-    private final LocalDateTime expirationDate;
+    private final LocalDate expirationDate;
 
     public GetMetadataDto(Metadata metadata, String type) {
-        LocalDateTime dateTime = null;
+        LocalDate expirationDate = null;
         if (metadata.getRegistrationDate() != null) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            dateTime = LocalDateTime.parse(metadata.getRegistrationDate(), formatter);
+            SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+            try {
+                Date date = dateformat.parse(metadata.getRegistrationDate().replaceAll("\\.", "-"));
+                expirationDate = date.toInstant().atZone(ZoneId.systemDefault())
+                        .toLocalDate()
+                        .plusYears(15);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         }
 
         this.type = type;
@@ -63,9 +72,7 @@ public class GetMetadataDto {
 
         this.agentName = metadata.getAgentName();
         this.agentAddress = metadata.getAgentAddress();
-        this.agentEmail = metadata.getAgentEmail();
-        this.agentPhone = metadata.getAgentPhone();
 
-        this.expirationDate = dateTime;
+        this.expirationDate = expirationDate;
     }
 }
