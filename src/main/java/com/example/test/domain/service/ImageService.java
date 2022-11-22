@@ -5,6 +5,7 @@ import com.example.test.domain.exception.image.CannotViewImageException;
 import com.example.test.domain.exception.image.ImageNotFoundException;
 import com.example.test.domain.model.entity.Image;
 import com.example.test.domain.model.repository.ImageRepository;
+import net.coobird.thumbnailator.Thumbnails;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -36,16 +37,20 @@ public class ImageService {
 
     private final ImageRepository imageRepository;
 
-    public byte[] viewImage(int reportNo) {
+    public byte[] viewImage(int reportNo, int width, int height) {
         Image image = imageRepository.findByReportNo(reportNo).orElseThrow(() -> new ImageNotFoundException(reportNo));
-        return this.viewImage(imagePath + File.separator + image.getImagePath());
+        return this.viewImage(imagePath + File.separator + image.getImagePath(), width, height);
     }
 
-    private byte[] viewImage(String fileName) {
+    private byte[] viewImage(String fileName, int width, int height) {
         try (
                 FileInputStream inputStream = new FileInputStream(fileName);
                 ByteArrayOutputStream outputStream = new ByteArrayOutputStream()
         ) {
+            Thumbnails.of(fileName)
+                    .size(width, height)
+                    .toOutputStream(outputStream);
+
             byte[] buffer = new byte[8192];
             int length;
             while ((length = inputStream.read(buffer)) != -1)
@@ -80,7 +85,7 @@ public class ImageService {
         file.transferTo(image);
     }
 
-    public byte[] viewThumbnailImage(String imagePath) {
-        return this.viewImage(this.searchImagePath + imagePath);
+    public byte[] viewThumbnailImage(String imagePath, int width, int height) {
+        return this.viewImage(this.searchImagePath + imagePath, width, height);
     }
 }

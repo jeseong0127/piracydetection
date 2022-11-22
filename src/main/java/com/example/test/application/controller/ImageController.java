@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -21,20 +20,24 @@ public class ImageController {
     private final ImageService imageService;
 
     @ApiOperation(value = "신고 이미지 조회하기")
-    @GetMapping(value = "/{reportNo}", produces = MediaType.IMAGE_JPEG_VALUE)
+    @GetMapping(value = "/report", produces = MediaType.IMAGE_JPEG_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public byte[] viewImage(
-            @PathVariable int reportNo
+            @RequestParam int reportNo,
+            @RequestParam int width,
+            @RequestParam int height
     ) {
-        return imageService.viewImage(reportNo);
+        return imageService.viewImage(reportNo, width, height);
     }
 
     @ApiOperation(value = "검색 대표 이미지 조회하기")
     @GetMapping(produces = MediaType.IMAGE_JPEG_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public byte[] viewThumbnailImage(
-            @RequestParam String imagePath
+            @RequestParam String imagePath,
+            @RequestParam int width,
+            @RequestParam int height
     ) {
-        return imageService.viewThumbnailImage(imagePath);
+        return imageService.viewThumbnailImage(imagePath, width, height);
     }
 }
