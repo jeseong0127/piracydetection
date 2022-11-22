@@ -20,7 +20,7 @@ public class ImageController {
     private final ImageService imageService;
 
     @ApiOperation(value = "신고 이미지 조회하기")
-    @GetMapping(value = "/report", produces = MediaType.IMAGE_JPEG_VALUE)
+    @GetMapping(value = "/reports", produces = MediaType.IMAGE_JPEG_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public byte[] viewImage(
             @RequestParam int reportNo,
