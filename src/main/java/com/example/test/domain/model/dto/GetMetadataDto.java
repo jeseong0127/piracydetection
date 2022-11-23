@@ -13,7 +13,6 @@ import lombok.Getter;
 
 @Getter
 public class GetMetadataDto {
-    private String type;
     private final int metaSeq;
     private final String productCategory;
     private final String articleName;
@@ -37,7 +36,7 @@ public class GetMetadataDto {
 
     private final LocalDate expirationDate;
 
-    public GetMetadataDto(Metadata metadata, String type) {
+    public GetMetadataDto(Metadata metadata) {
         LocalDate expirationDate = null;
         if (metadata.getRegistrationDate() != null) {
             SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
@@ -51,7 +50,6 @@ public class GetMetadataDto {
             }
         }
 
-        this.type = type;
         this.metaSeq = metadata.getMetaSeq();
         this.productCategory = metadata.getProductCategory();
         this.articleName = metadata.getArticleName();
