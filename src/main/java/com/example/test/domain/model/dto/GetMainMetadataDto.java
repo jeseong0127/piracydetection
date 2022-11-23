@@ -26,11 +26,16 @@ public class GetMainMetadataDto {
 
     public GetMainMetadataDto(Main main) {
         this.mainNo = main.getMainNo();
+        this.regDate = main.getRegDate();
         this.metaSeq = main.getMetadata().getMetaSeq();
         this.modelName = main.getMetadata().getModelName();
         this.highProductCategory = main.getMetadata().getHighProductCategory();
         this.productCategory = main.getMetadata().getProductCategory();
-        this.pathImg = main.getMetadata().getPathImg();
-        this.regDate = main.getRegDate();
+
+        if (main.getMetadata().getPathImgGoods() != null) {
+            this.pathImg = main.getMetadata().getPathImgGoods();
+        } else {
+            this.pathImg = main.getMetadata().getPathImg();
+        }
     }
 }
