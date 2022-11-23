@@ -15,18 +15,19 @@ import org.springframework.transaction.annotation.Transactional;
 public class MetadataService {
     private final MetadataRepository metadataRepository;
 
-    String defaultReserveId = "N/A";
-
     @Transactional(readOnly = true)
     public List<GetMetadataDto> getImageSearchMetadata(List<String> data) {
         List<GetMetadataDto> getMetadataDtos = new ArrayList<>();
 
-        for (String RegistrationNumber : data) {
-            metadataRepository.findByModelNameIsNotNullAndPathImgContainingAndReserveIdAndRegIdNullAndImgCountLessThan(RegistrationNumber, defaultReserveId, 62)
-                    .ifPresent(metadata -> getMetadataDtos.add(new GetMetadataDto(metadata, "photo")));
-
-            metadataRepository.findByModelNameIsNotNullAndPathImgGoodsContainingAndReserveIdAndRegIdNullAndImgCountLessThan(RegistrationNumber, defaultReserveId, 62)
-                    .ifPresent(metadata -> getMetadataDtos.add(new GetMetadataDto(metadata, "drawing")));
+        for (String registrationNumber : data) {
+            metadataRepository.findAllByModelNameIsNotNull()
+                    .forEach(metadata -> {
+                        if (metadata.getPathImgGoods() != null && metadata.getPathImgGoods().contains(registrationNumber)) {
+                            getMetadataDtos.add(new GetMetadataDto(metadata));
+                        } else if (metadata.getPathImg() != null && metadata.getPathImg().contains(registrationNumber)) {
+                            getMetadataDtos.add(new GetMetadataDto(metadata));
+                        }
+                    });
         }
         return getMetadataDtos;
     }
