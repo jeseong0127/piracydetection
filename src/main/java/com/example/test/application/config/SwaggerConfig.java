@@ -1,8 +1,10 @@
 package com.example.test.application.config;
 
+import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.oas.annotations.EnableOpenApi;
+import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.ApiKey;
 import springfox.documentation.service.AuthorizationScope;
 import springfox.documentation.service.SecurityReference;
@@ -19,12 +21,18 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @EnableOpenApi
 public class SwaggerConfig {
+
+    private static final String API_NAME = "PiracyDetection API";
+    private static final String API_VERSION = "0.0.1";
+    private static final String API_DESCRIPTION = "볼법복제판독시스템 API";
+
     @Bean
     public Docket swaggerApi() {
         return new Docket(DocumentationType.OAS_30)
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.example.test.application.controller"))
                 .build()
+                .apiInfo(apiInfo())
                 .securitySchemes(Collections.singletonList(apiKey()))
                 .securityContexts(Collections.singletonList(securityContext()));
     }
@@ -41,4 +49,13 @@ public class SwaggerConfig {
         AuthorizationScope authorizationScope = new AuthorizationScope("gloabl", "access All");
         return Collections.singletonList(new SecurityReference("Authorization", new AuthorizationScope[]{authorizationScope}));
     }
+
+    private ApiInfo apiInfo() {
+        return new ApiInfoBuilder()
+                .title(API_NAME)
+                .version(API_VERSION)
+                .description(API_DESCRIPTION)
+                .build();
+    }
+
 }
