@@ -2,7 +2,7 @@ package com.example.test.application.exception;
 
 import com.example.test.core.response.ErrorResponse;
 import com.example.test.domain.exception.member.MemberNotFoundException;
-import com.example.test.domain.exception.member.NotMatchPasswordException;
+import com.example.test.domain.exception.member.PasswordNotMatchedException;
 
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -20,9 +20,9 @@ public class MemberExceptionHandler {
         return new ErrorResponse(HttpStatus.NOT_FOUND, "Member-001", exception.getMessage());
     }
 
-    @ExceptionHandler(NotMatchPasswordException.class)
+    @ExceptionHandler(PasswordNotMatchedException.class)
     @ResponseStatus(HttpStatus.CONFLICT)
-    public ErrorResponse handleNotMatchPassword(NotMatchPasswordException exception) {
+    public ErrorResponse handleNotMatchPassword(PasswordNotMatchedException exception) {
         return new ErrorResponse(HttpStatus.CONFLICT, "Member-002", exception.getMessage());
     }
 }
