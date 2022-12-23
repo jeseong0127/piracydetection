@@ -10,6 +10,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface MetadataRepository extends JpaRepository<Metadata, Integer> {
-    @Query("select m from Metadata m where m.modelName is not null group by m.modelName")
+    @Query("select m from Metadata m where m.modelName is not null group by m.modelName, m.registrationNumber")
     List<Metadata> findAllByModelNameIsNotNull();
 }
