@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
-import io.jsonwebtoken.SignatureException;
 
 import java.io.IOException;
 import javax.servlet.FilterChain;
@@ -35,7 +34,7 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
             if (claims != null)
                 SecurityContextHolder.getContext().setAuthentication(jwtTokenProvider.getAuthentication(claims));
             filterChain.doFilter(request, response);
-        } catch (SignatureException e) {
+        } catch (SecurityException e) {
             sendErrorMessage((HttpServletResponse) response, "Auth-001", "유효하지 않은 토큰입니다.");
         } catch (MalformedJwtException e) {
             sendErrorMessage((HttpServletResponse) response, "Auth-002", "손상된 토큰입니다.");
