@@ -31,6 +31,22 @@ public class MetadataService {
                     }
             );
         }
+
+        // refactoring
+
+//        List<Metadata> metadataList = metadataRepository.findAllByModelNameIsNotNull();
+//        for (String pathImage : images) {
+//            metadataList.stream()
+//                    .filter(metadata -> metadata.getPathImgGoods() != null && metadata.getPathImgGoods().contains(pathImage))
+//                    .findAny()
+//                    .ifPresent(metadata -> getMetadataDtos.add(new GetMetadataDto(metadata)));
+//
+//            metadataList.stream()
+//                    .filter(metadata -> metadata.getPathImg() != null && metadata.getPathImg().contains(pathImage))
+//                    .findAny()
+//                    .ifPresent(metadata -> getMetadataDtos.add(new GetMetadataDto(metadata)));
+//        }
+
         return getMetadataDtos;
     }
 }

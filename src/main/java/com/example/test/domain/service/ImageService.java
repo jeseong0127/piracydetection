@@ -78,9 +78,8 @@ public class ImageService {
     }
 
     private void uploadImage(String imagePath, MultipartFile file, String fileName) throws IOException {
-        File directory = new File(imagePath + File.separator + fileName.substring(0, fileName.lastIndexOf("/")));
-        File image = new File(imagePath + File.separator + fileName);
-
+        File directory = new File(imagePath, fileName.substring(0, fileName.lastIndexOf("/")));
+        File image = new File(imagePath, fileName);
         FileUtils.forceMkdir(directory);
         file.transferTo(image);
     }
