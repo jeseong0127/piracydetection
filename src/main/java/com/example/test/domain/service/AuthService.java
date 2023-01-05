@@ -1,12 +1,12 @@
 package com.example.test.domain.service;
 
 import com.example.test.application.response.LoginResponse;
-import com.example.test.application.response.MemberDto;
-import com.example.test.application.response.TokenDto;
 import com.example.test.core.security.JwtTokenProvider;
 import com.example.test.core.util.Encoder;
 import com.example.test.domain.exception.member.MemberNotFoundException;
 import com.example.test.domain.exception.member.PasswordNotMatchedException;
+import com.example.test.domain.model.dto.MemberDto;
+import com.example.test.domain.model.dto.TokenDto;
 import com.example.test.domain.model.entity.Member;
 import com.example.test.domain.model.repository.MemberRepository;
 
