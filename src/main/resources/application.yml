@@ -12,6 +12,7 @@ spring:
     url: ${DATABASE_URL}
     username: ${DATABASE_USERNAME}
     password: ${DATABASE_PASSWORD}
+
   jpa:
     database: mysql
     database-platform: org.hibernate.dialect.MySQL57InnoDBDialect
@@ -23,10 +24,16 @@ spring:
       hibernate:
         format_sql: true
     open-in-view: true
+
   servlet:
     multipart:
       max-file-size: 30MB
       max-request-size: 30MB
+
+  security:
+    user:
+      password: vitasoft001
+
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
@@ -35,10 +42,10 @@ app:
   jwtSecret: ${APP_JWT_SECRET}
   jwtExpirationMs: ${APP_JWT_EXPIRATION_MS}
 
-
 image:
   upload-path: ${UPLOAD_PATH}
   search-path: ${SEARCH_PATH}
+
 logging:
   level:
     org:

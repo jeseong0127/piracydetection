@@ -7,7 +7,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -24,6 +23,11 @@ public class SecurityConfig {
 
     private final ObjectMapper objectMapper;
 
+    private static final String[] PERMIT_SWAGGER_URL_ARRAY = {
+            "/v3/api-docs", "/swagger-resources/**",
+            "/swagger-ui/**", "/webjars/**", "/swagger/**"
+    };
+
     @Bean
     protected SecurityFilterChain configure(HttpSecurity http) throws Exception {
         http.httpBasic().disable()
@@ -33,10 +37,9 @@ public class SecurityConfig {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/swagger-ui/**").permitAll()
+                .antMatchers(PERMIT_SWAGGER_URL_ARRAY).permitAll()
                 .antMatchers("/api/auth/login").permitAll()
-                .antMatchers("/api/**").permitAll()
-//                .antMatchers("/api/member/**").hasRole("MEMBER")
+                .anyRequest().authenticated()
                 .and()
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider, objectMapper), UsernamePasswordAuthenticationFilter.class);
         return http.build();
